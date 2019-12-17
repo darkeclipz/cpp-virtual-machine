@@ -1,0 +1,4 @@
+﻿  VirtualMachine.cpp
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\VirtualMachine.cpp(158,14): warning C4244: 'initializing': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\VirtualMachine.cpp(182,31): warning C4018: '<': signed/unsigned mismatch
+  cpp-virtual-machine.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\Debug\cpp-virtual-machine.exe
