@@ -34,11 +34,17 @@ The following flags are used in the virtual machine.
 
 # Memory
 
-In the constructor of the virtual machine the amount of memory is currently set to 8kb.
+Memory has the following layout:
 
-The VGA is mapped to address `0x2000` in memory. 
+| `0x00 - 0x1ffff` | `0x2000 + 0x24B0`  | `0x24B1 - sp` | `sp - 0x7FFF` | `0x8000 - 0xFFFF` |
+| -- | -- | -- | -- | -- | -- |
+| Empty | VGA | Empty | Stack | _Unused_ |
 
-At the moment, a ROM is loaded at address `0x0000`.
+ * In the constructor of the virtual machine the amount of memory is currently set to 8kb.
+ * The address range is `0x0000 - 0x8000`.
+ * The VGA is mapped to address `0x2000` in memory. 
+ * At the moment, a ROM is loaded at address `0x0000`.
+ * The stack is located at the end of memory.
 
 # Instructions
 
