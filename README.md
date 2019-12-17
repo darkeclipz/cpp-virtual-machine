@@ -125,7 +125,7 @@ Before assembling, other assembly files should be included. They are annotated w
  * Press `F5` to halt.
  * Enter `run` to start.
  * Enter `reset` to reset.
- * Enter `step` to execute on instruction.
+ * Enter `step` to execute one instruction.
 
 # Todo
 
