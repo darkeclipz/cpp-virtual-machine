@@ -2,7 +2,7 @@
 
 A virtual machine / CPU emulator written in C++. It contains a VM, assembler, and debugger.
 
-<screenshot>
+![VM screenshot](vm.png)
 
 # CPU
 
