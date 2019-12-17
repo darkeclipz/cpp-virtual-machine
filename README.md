@@ -122,7 +122,10 @@ Before assembling, other assembly files should be included. They are annotated w
 
 # Debugger
 
-**Todo:** Explain the debugger.
+ * Press `F5` to halt.
+ * Enter `run` to start.
+ * Enter `reset` to reset.
+ * Enter `step` to execute on instruction.
 
 # Todo
 
