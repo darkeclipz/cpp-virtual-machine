@@ -37,7 +37,7 @@ The following flags are used in the virtual machine.
 Memory has the following layout:
 
 | `0x00 - 0x1ffff` | `0x2000 + 0x24B0`  | `0x24B1 - sp` | `sp - 0x7FFF` | `0x8000 - 0xFFFF` |
-| -- | -- | -- | -- | -- | -- |
+| -- | -- | -- | -- | -- | 
 | Empty | VGA | Empty | Stack | _Unused_ |
 
  * In the constructor of the virtual machine the amount of memory is currently set to 8kb.
