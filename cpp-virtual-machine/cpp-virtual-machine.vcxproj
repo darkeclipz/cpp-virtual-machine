@@ -124,11 +124,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleScreen.cpp" />
+    <ClCompile Include="Debugger.cpp" />
+    <ClCompile Include="Disassembler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="VirtualMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleScreen.h" />
+    <ClInclude Include="Debugger.h" />
+    <ClInclude Include="Disassembler.h" />
     <ClInclude Include="VirtualMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -7,6 +7,11 @@
 const WORD FOREGROUND_WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
 const WORD FOREGROUND_GRAY = 0x08;
 
+const int CONSOLE_WIDTH = 120;
+const int CONSOLE_HEIGHT = 40;
+const int SPLIT_X = 80;
+const int SPLIT_Y = 21;
+
 class ConsoleScreen
 {
 private:

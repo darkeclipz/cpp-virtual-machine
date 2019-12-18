@@ -23,13 +23,14 @@ public:
 		G = (1 << 7)	// Greater than
 	};
 	enum REGISTERS {
-		AX = (1 << 0),
-		BX = (1 << 1),
-		CX = (1 << 2),
-		DX = (1 << 3),
-		SP = (1 << 4),
-		BP = (1 << 5),
-		IP = (1 << 6)
+		AX = (1 << 0), // reg A
+		BX = (1 << 1), // reg B
+		CX = (1 << 2), // reg C
+		DX = (1 << 3), // reg D
+		SP = (1 << 4), // stack pointer
+		SB = (1 << 5), // stack base
+		BP = (1 << 6), // base pointer (for relative addressing)
+		IP = (1 << 7)  // instruction pointer
 	};
 private:
 	int m_memory_size;
@@ -42,6 +43,7 @@ private:
 	uint16_t dx;	// Register D
 
 	uint16_t sp;	// Stack Pointer
+	uint16_t sb;	// Stack base
 	uint16_t bp;	// Base Pointer
 	uint16_t ip;	// Instruction Pointer
 
@@ -50,7 +52,7 @@ private:
 	// Opcodes
 	uint8_t NOP(); uint8_t HLT(); uint8_t MRC(); uint8_t MMM();
 	uint8_t MRR(); uint8_t MRM(); uint8_t MMR(); uint8_t ARC();
-	uint8_t JMP(); uint8_t MPP();
+	uint8_t JMP(); uint8_t MPP(); uint8_t SHL();
 
 private:
 	void clock();
@@ -76,12 +78,12 @@ public:
 	uint16_t GetCX();
 	uint16_t GetDX();
 	uint16_t GetSP();
+	uint16_t GetSB();
 	uint16_t GetBP();
 	uint16_t GetIP();
 	void step();
 	void reset();
-	const uint16_t vga_address = 0x0080;
-	std::vector<std::string> disassemble_lines(uint16_t address, int n);
+	const uint16_t vga_address = 0x2000;
 
 	struct INSTRUCTION
 	{

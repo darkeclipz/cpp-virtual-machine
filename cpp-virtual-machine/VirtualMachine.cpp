@@ -1,6 +1,4 @@
 #include "VirtualMachine.h"
-#include <sstream>
-#include <iomanip>
 
 VirtualMachine::VirtualMachine(int memory_size) {
 
@@ -16,7 +14,8 @@ VirtualMachine::VirtualMachine(int memory_size) {
 	lookup[0x13] = { "MMM", &VirtualMachine::MMM, 3, "MOV" };
 	lookup[0x14] = { "MPP", &VirtualMachine::MPP, 3, "MOV" };
 	lookup[0x21] = { "JMP", &VirtualMachine::JMP, 2, "JMP" };
-	lookup[100] = { "ADD", &VirtualMachine::ARC, 3, "ADD" };
+	lookup[100] =  { "ADD", &VirtualMachine::ARC, 3, "ADD" };
+	lookup[140] =  { "SHL", &VirtualMachine::SHL, 3, "SHL" };
 
 	m_memory_size = memory_size;
 	m_memory = new uint8_t[m_memory_size]{ 0x0 };
@@ -40,7 +39,8 @@ uint16_t VirtualMachine::read_reg(uint8_t reg) {
 	case VirtualMachine::REGISTERS::CX:	return cx;
 	case VirtualMachine::REGISTERS::DX:	return dx;
 	case VirtualMachine::REGISTERS::SP:	return sp;
-	case VirtualMachine::REGISTERS::BP:	return bp;
+	case VirtualMachine::REGISTERS::SB:	return sb;
+	case VirtualMachine::REGISTERS::BP: return bp;
 	case VirtualMachine::REGISTERS::IP:	return ip;
 	default:
 		throw std::invalid_argument("invalid register");
@@ -79,6 +79,10 @@ uint16_t VirtualMachine::GetDX() {
 
 uint16_t VirtualMachine::GetSP() {
 	return sp;
+}
+
+uint16_t VirtualMachine::GetSB() {
+	return sb;
 }
 
 uint16_t VirtualMachine::GetBP() {
@@ -151,12 +155,21 @@ uint8_t VirtualMachine::ARC() {  // ADD reg, const
 	return 0;
 }
 
-uint8_t VirtualMachine::MPP() {  // MOV preg, preg
+uint8_t VirtualMachine::MPP() {  // MOV *reg, *reg
 	uint8_t reg1 = read_mem(ip + 1);
 	uint8_t reg2 = read_mem(ip + 2);
 	uint16_t addr = read_reg(reg1);
 	uint8_t val = read_reg(reg2);
 	write_mem(addr, val);
+	return 0;
+}
+
+uint8_t VirtualMachine::SHL() { // SHL reg
+	uint8_t reg = read_mem(ip + 1);
+	int shift = read_mem(ip + 2);
+	uint16_t value = read_reg(reg);
+	value <<= shift;
+	write_reg(reg, value);
 	return 0;
 }
 
@@ -174,38 +187,6 @@ void VirtualMachine::write_mem(uint16_t address, uint8_t value) {
 	m_memory[address] = value;
 }
 
-std::vector<std::string> VirtualMachine::disassemble_lines(uint16_t address, int n) {
-	std::vector<std::string> lines;
-
-	while (address++ > 0x00FF) lines.push_back("");
-
-	for (int i = 0; lines.size() < n; i += lookup[read_mem(address + i)].instruction_size) {
-		std::stringstream ss;
-		std::stringstream ssargs;
-		for (int j = 0; j < lookup[read_mem(address + i)].instruction_size; j++)
-		{
-			ss << std::setfill('0') << std::setw(2) << std::hex << (int)read_mem(address + i + j) << " ";
-			if (read_mem(address + i) != 0 && j > 0)
-				ssargs << (j > 1 ? ", " : "") << std::setfill('0') << std::setw(2) << std::hex << (int)read_mem(address + i + j);
-		}
-
-		int size = ss.str().size();
-		while (14 - size > 0) {
-			ss << " ";
-			size++;
-		}
-
-		ss << lookup[read_mem(address + i)].disassemble_symbol << " " << ssargs.str();
-
-		lines.push_back(ss.str());
-		ssargs.str("");
-		ssargs.clear();
-		ss.str("");
-		ss.clear();
-	}
-	return lines;
-}
-
 void VirtualMachine::clock() {
 	opcode = m_memory[ip];
 	(this->*lookup[opcode].operate)();
@@ -216,8 +197,9 @@ void VirtualMachine::clock() {
 }
 
 void VirtualMachine::reset() {
-	ax = 0; bx = 0; cx = 0; dx = 0;
-	bp = m_memory_size - 1; sp = bp;  ip = 0; m_flags = FLAGS::B;
+	ax = 0; bx = 0; cx = 0; dx = 0; bp = 0;
+	sb = m_memory_size - 1; sp = sb;  ip = 0; 
+	m_flags = FLAGS::B;
 }
 
 uint8_t VirtualMachine::GetFlag(FLAGS flag) {
