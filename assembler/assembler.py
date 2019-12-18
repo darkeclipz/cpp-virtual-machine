@@ -1,18 +1,19 @@
-from constants import *
-from opcodes import *
-from tokens import *
-
+from tokenizer import Tokenizer
 
 SCRIPT = """
-loop:
-    MOV eax, 2
-    MOV ebx, 8
-    MUL eax, ebx
-    SHL eax, 1         ; do some stuff
+
+    MOV ax, 2
+    MOV bx, 8
+    MUL ax, bx
+    
+    
+    MOV [ax],[bx]
+    SHL ax, 1         ; do some stuff
     HLT
     
-; shouldn't come here
-    JMP loop
 """
 
+tokenizer = Tokenizer(SCRIPT)
+tokens = tokenizer.tokens
 
+print(tokens)
