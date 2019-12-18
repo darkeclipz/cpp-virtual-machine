@@ -15,8 +15,9 @@ The CPU contains four general purpose registers, named `AX`, `BX`, `CX`, and `DX
 |`CX` | 4 | 16 | Register C | 
 |`DX` | 8 | 16 | Register D | 
 |`SP` | 16 | 16 | Stack pointer | 
-|`BP` | 32 | 16 | Base pointer | 
-|`IP` | 64 | 16 | Instruction pointer | 
+|`SB` | 32 | 16 | Stack base | 
+|`BP` | 64 | 16 | Base pointer | 
+|`IP` | 128 | 16 | Instruction pointer | 
 
 The following flags are used in the virtual machine.
 
@@ -58,6 +59,7 @@ The virtual machine support the following opcodes.
 | `0x011` | `MOV reg, mem` | 3 | Move the value of address `mem` into `reg` |
 | `0x012` | `MOV mem, reg` | 3 | Move the value of `reg` into address `mem` |
 | `0x013` | `MOV mem1, mem2` | 3 | Move the value of address `mem2` into address `mem1` |
+| `0x014` | `MOV [reg1], [reg2] | 3 | Move the value from address `reg2` into address `reg1` |
 | `0x020` | `TEST reg1, reg2` | 3 | Compare `reg1` to `reg2`, results are set as flags |
 | `0x021` | `JMP addr` | 2 | Jump to `addr` |
 | `0x022` | `JZ addr` | 2 | Jump to `addr` if `Z` is set |
