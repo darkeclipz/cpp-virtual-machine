@@ -50,9 +50,9 @@ private:
 	uint8_t m_flags;	// Flags
 
 	// Opcodes
-	uint8_t NOP(); uint8_t HLT(); uint8_t MRC(); uint8_t MMM();
-	uint8_t MRR(); uint8_t MRM(); uint8_t MMR(); uint8_t ARC();
-	uint8_t JMP(); uint8_t MPP(); uint8_t SHL();
+	uint8_t NOP(); uint8_t HLT(); uint8_t MOVRC(); uint8_t MOVMM();
+	uint8_t MOVRR(); uint8_t MOVRM(); uint8_t MOVMR(); uint8_t ADDRC();
+	uint8_t JMPC(); uint8_t MOVPR(); uint8_t SHLRC();
 
 private:
 	void clock();

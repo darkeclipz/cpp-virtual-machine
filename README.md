@@ -16,7 +16,7 @@ The CPU contains four general purpose registers, named `AX`, `BX`, `CX`, and `DX
 |`DX` | 8 | 16 | Register D | 
 |`SP` | 16 | 16 | Stack pointer | 
 |`SB` | 32 | 16 | Stack base | 
-|`BP` | 64 | 16 | Base pointer | 
+|`BP` | 64 | 16 | Base pointer (consider replacing with flags) | 
 |`IP` | 128 | 16 | Instruction pointer | 
 
 The following flags are used in the virtual machine.
@@ -51,38 +51,7 @@ Memory has the following layout:
 
 The virtual machine support the following opcodes.
 
-| Mnemonic | Opcode | Bytes | Description | 
-| -- | -- | -- | -- |
-| `0x005` | `HLT` | 1 | Sets flag `B`, and halts |
-| `0x009` | `MOV reg, const` | 3 | Move a `const` into `reg` |
-| `0x010` | `MOV reg1, reg2` | 3 | Move the value of `reg2` into `reg1` |
-| `0x011` | `MOV reg, mem` | 3 | Move the value of address `mem` into `reg` |
-| `0x012` | `MOV mem, reg` | 3 | Move the value of `reg` into address `mem` |
-| `0x013` | `MOV mem1, mem2` | 3 | Move the value of address `mem2` into address `mem1` |
-| `0x014` | `MOV [reg1], [reg2] | 3 | Move the value from address `reg2` into address `reg1` |
-| `0x020` | `TEST reg1, reg2` | 3 | Compare `reg1` to `reg2`, results are set as flags |
-| `0x021` | `JMP addr` | 2 | Jump to `addr` |
-| `0x022` | `JZ addr` | 2 | Jump to `addr` if `Z` is set |
-| `0x023` | `JNZ addr` | 2 | Jump to `addr` if `Z` is not set |
-| `0x024` | `JGT addr` | 2 | Jump to `addr` if `G` is set |
-| `0x025` | `JLT addr` | 2 | Jump to `addr` if `L` is set |
-| `0x026` | `JE addr` | 2 | Jump to `addr` if `E` is set |
-| `0x027` | `JNE addr` | 2 | Jump to `addr` if `E` is not set |
-| `0x40` | `PUSH reg` | 2 | Push the value of `reg` onto the stack. |
-| `0x41` | `POP reg` | 2 | Pops the value from the stack into `reg` |
-| `0x100` | `ADD reg, const` | 3 | Add the value of `const` to `reg` |
-| `0x101` | `ADD reg1, reg2` | 3 | Add the value in `reg2` to `reg1` |
-
-The opcodes are categorized into the following address ranges.
-
-|Type | Range |
-|--|--|
-| General & Control Flow | `0x00 - 0x99` |
-| Arithmetic | `0x100 - 0x140` |
-| Bit operations | `0x140 - 0x180` |
-| Other | `0x180 - 0x255` |
-
-**Todo:** fix this weird schema with integer in hex values. Mapping goes from `0x00 - 0xff`.
+See `opcode_table.xlsx`.
 
 # Assembly
 

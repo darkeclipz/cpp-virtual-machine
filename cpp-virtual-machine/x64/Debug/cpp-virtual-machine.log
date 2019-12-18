@@ -1,3 +1,2 @@
-﻿  Debugger.cpp
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(140,114): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+﻿  VirtualMachine.cpp
   cpp-virtual-machine.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\x64\Debug\cpp-virtual-machine.exe

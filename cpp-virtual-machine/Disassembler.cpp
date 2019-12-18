@@ -23,7 +23,7 @@ std::vector<std::string> Disassembler::disassemble_lines(uint16_t address, int n
 			size++;
 		}
 
-		ss << vm->lookup[vm->read_mem(address + i)].disassemble_symbol << " " << ssargs.str();
+		ss << vm->lookup[vm->read_mem(address + i)].name << " " << ssargs.str();
 
 		lines.push_back(ss.str());
 		ssargs.str("");

@@ -7,15 +7,15 @@ VirtualMachine::VirtualMachine(int memory_size) {
 	}
 
 	lookup[0x05] = { "HLT", &VirtualMachine::HLT, 1, "HLT" };
-	lookup[0x09] = { "MRC", &VirtualMachine::MRC, 3, "MOV" };
-	lookup[0x10] = { "MRR", &VirtualMachine::MRR, 3, "MOV" };
-	lookup[0x11] = { "MRM", &VirtualMachine::MRM, 3, "MOV" };
-	lookup[0x12] = { "MMR", &VirtualMachine::MMR, 3, "MOV" };
-	lookup[0x13] = { "MMM", &VirtualMachine::MMM, 3, "MOV" };
-	lookup[0x14] = { "MPP", &VirtualMachine::MPP, 3, "MOV" };
-	lookup[0x21] = { "JMP", &VirtualMachine::JMP, 2, "JMP" };
-	lookup[100] =  { "ADD", &VirtualMachine::ARC, 3, "ADD" };
-	lookup[140] =  { "SHL", &VirtualMachine::SHL, 3, "SHL" };
+	lookup[0x10] = { "MOVRC", &VirtualMachine::MOVRC, 4, "MOV" };
+	lookup[0x11] = { "MOVRR", &VirtualMachine::MOVRR, 3, "MOV" };
+	//lookup[0x12] = { "MOVRM", &VirtualMachine::MOVRM, 3, "MOV" };
+	//lookup[0x15] = { "MOVMR", &VirtualMachine::MOVMR, 4, "MOV" };
+	//lookup[0x16] = { "MOVMM", &VirtualMachine::MOVMM, 3, "MOV" };
+	lookup[0x19] = { "MOVPR", &VirtualMachine::MOVPR, 3, "MOV" };
+	lookup[0x20] = { "JMPC", &VirtualMachine::JMPC, 3, "JMP" };
+	lookup[0x40] = { "ADDRC", &VirtualMachine::ADDRC, 4, "ADD" };
+	//lookup[0x50] = { "SHLRC", &VirtualMachine::SHLRC, 4, "SHL" };
 
 	m_memory_size = memory_size;
 	m_memory = new uint8_t[m_memory_size]{ 0x0 };
@@ -97,7 +97,7 @@ uint8_t VirtualMachine::NOP() {
 	return 0;
 }
 
-uint8_t VirtualMachine::MRR() {  // MOV reg, reg
+uint8_t VirtualMachine::MOVRR() {  // MOV reg, reg
 	uint8_t r1 = read_mem(ip + 1);
 	uint8_t r2 = read_mem(ip + 2);
 	uint16_t value = read_reg(r2);
@@ -105,7 +105,7 @@ uint8_t VirtualMachine::MRR() {  // MOV reg, reg
 	return 0;
 }
 
-uint8_t VirtualMachine::MRM() {  // MOV reg, mem
+uint8_t VirtualMachine::MOVRM() {  // MOV reg, mem
 	uint8_t reg = read_mem(ip + 1);
 	uint8_t addr = read_mem(ip + 2);
 	uint8_t value = read_mem(addr);
@@ -113,15 +113,15 @@ uint8_t VirtualMachine::MRM() {  // MOV reg, mem
 	return 0;
 }
 
-uint8_t VirtualMachine::MMR() {  // MOV mem, reg
+uint8_t VirtualMachine::MOVMR() {  // MOV mem, reg
 	uint8_t addr = read_mem(ip + 1);
-	uint8_t reg = read_mem(ip + 2);
+	uint8_t reg = read_mem(ip + 3);
 	uint16_t value = read_reg(reg);
 	write_mem(addr, value & 0x00ff);
 	return 0;
 }
 
-uint8_t VirtualMachine::MMM() {  // MOV mem, mem
+uint8_t VirtualMachine::MOVMM() {  // MOV mem, mem
 	uint8_t addr1 = read_mem(ip + 1);
 	uint8_t addr2 = read_mem(ip + 2);
 	uint8_t value = read_mem(addr2);
@@ -134,37 +134,37 @@ uint8_t VirtualMachine::HLT() {
 	return 0;
 }
 
-uint8_t VirtualMachine::MRC() {  // MOV reg, const
+uint8_t VirtualMachine::MOVRC() {  // MOV reg, const
 	uint8_t reg = read_mem(ip + 1);
-	uint8_t val = read_mem(ip + 2);
+	uint16_t val = read_mem(ip + 2) << 8 | read_mem(ip + 3);
 	write_reg(reg, val);
 	return 0;
 }
 
-uint8_t VirtualMachine::JMP() {
-	uint8_t addr = read_mem(ip + 1);
-	write_reg(REGISTERS::IP, addr - 2);
+uint8_t VirtualMachine::JMPC() {
+	uint16_t addr = read_mem(ip + 1) << 8 | read_mem(ip + 2);
+	write_reg(REGISTERS::IP, addr - 3 + read_reg(REGISTERS::BP));
 	return 0;
 }
 
-uint8_t VirtualMachine::ARC() {  // ADD reg, const
+uint8_t VirtualMachine::ADDRC() {  // ADD reg, const
 	uint8_t reg = read_mem(ip + 1);
-	uint8_t val = read_mem(ip + 2);
+	uint16_t val = read_mem(ip + 2) << 8 | read_mem(ip + 3);
 	uint16_t current_value = read_reg(reg);
 	write_reg(reg, current_value + val);
 	return 0;
 }
 
-uint8_t VirtualMachine::MPP() {  // MOV *reg, *reg
-	uint8_t reg1 = read_mem(ip + 1);
-	uint8_t reg2 = read_mem(ip + 2);
-	uint16_t addr = read_reg(reg1);
-	uint8_t val = read_reg(reg2);
-	write_mem(addr, val);
+uint8_t VirtualMachine::MOVPR() {  
+	uint8_t ptr = read_mem(ip + 1);
+	uint8_t reg = read_mem(ip + 2);
+	uint16_t addr = read_reg(ptr);
+	uint16_t value = read_reg(reg);
+	write_mem(addr, value & 0x00ff);
 	return 0;
 }
 
-uint8_t VirtualMachine::SHL() { // SHL reg
+uint8_t VirtualMachine::SHLRC() { // SHL reg
 	uint8_t reg = read_mem(ip + 1);
 	int shift = read_mem(ip + 2);
 	uint16_t value = read_reg(reg);
