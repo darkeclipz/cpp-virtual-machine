@@ -1,3 +1,6 @@
 *.IPCH
 *.ipch
 .vs\*
+Debug\*
+Release\*
+x64\*
