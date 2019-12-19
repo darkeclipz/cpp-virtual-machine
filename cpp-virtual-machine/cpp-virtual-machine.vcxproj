@@ -123,16 +123,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assembler.cpp" />
     <ClCompile Include="ConsoleScreen.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="Disassembler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tokenizer.cpp" />
     <ClCompile Include="VirtualMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assembler.h" />
     <ClInclude Include="ConsoleScreen.h" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="Disassembler.h" />
+    <ClInclude Include="Tokenizer.h" />
     <ClInclude Include="VirtualMachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

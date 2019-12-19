@@ -1,25 +1,47 @@
-﻿  ConsoleScreen.cpp
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(40,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(40,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(49,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(49,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(57,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(57,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(65,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(65,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(72,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-  Debugger.cpp
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(72,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
-  Disassembler.cpp
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(137,114): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  main.cpp
-  VirtualMachine.cpp
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Disassembler.cpp(20,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\VirtualMachine.cpp(157,14): warning C4244: 'initializing': conversion from 'uint16_t' to 'uint8_t', possible loss of data
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 359 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  cpp-virtual-machine.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\x64\Release\cpp-virtual-machine.exe
+﻿  Generating code
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\4\s\src\vctools\Compiler\Utc\src\p2\main.c', line 160)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x30acd
+    link!InvokeCompilerPass()+0x33189
+    link!InvokeCompilerPass()+0x244d8
+    link!InvokeCompilerPass()+0x243f2
+    link!InvokeCompilerPass()+0x2fbf3
+  
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\4\s\src\vctools\Compiler\Utc\src\p2\main.c', line 160)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x30acd
+    link!InvokeCompilerPass()+0x33189
+    link!InvokeCompilerPass()+0x244d8
+    link!InvokeCompilerPass()+0x243f2
+    link!InvokeCompilerPass()+0x2fbf3
+  
+  
+LINK : fatal error LNK1000: Internal error during IMAGE::BuildImage
+  
+    Version 14.21.27702.2
+  
+    ExceptionCode            = C0000005
+    ExceptionFlags           = 00000000
+    ExceptionAddress         = 795AF17E (79130000) "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\bin\HostX86\x64\c2.dll"
+    NumberParameters         = 00000002
+    ExceptionInformation[ 0] = 00000000
+    ExceptionInformation[ 1] = 00000000
+  
+  CONTEXT:
+    Eax    = 00000000  Esp    = 0019E7BC
+    Ebx    = 00000000  Ebp    = 0019E7CC
+    Ecx    = 00001505  Esi    = 00000000
+    Edx    = 00000000  Edi    = 00000000
+    Eip    = 795AF17E  EFlags = 00010246
+    SegCs  = 00000023  SegDs  = 0000002B
+    SegSs  = 0000002B  SegEs  = 0000002B
+    SegFs  = 00000053  SegGs  = 0000002B
+    Dr0    = 00000000  Dr3    = 00000000
+    Dr1    = 00000000  Dr6    = 00000000
+    Dr2    = 00000000  Dr7    = 00000000

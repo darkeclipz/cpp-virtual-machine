@@ -22,9 +22,12 @@ int main() {
 
 		0x20, 0x00, 21,
 
-		0x05																	// HLT	
+		0x10, 0x01, 0xB0, 0x0B,
+
+		0x05	
 	};
 	vm.load_rom(rom, 256, 0);
+	Assembler assembler;
 	Disassembler disassembler(vm);
 	Debugger debugger(vm, console, disassembler);
 }

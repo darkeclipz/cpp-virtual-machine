@@ -1,6 +1,7 @@
 #pragma once
 #include "VirtualMachine.h"
 #include "ConsoleScreen.h"
+#include "Assembler.h"
 #include "Disassembler.h"
 #include <string>
 #include <iomanip>
