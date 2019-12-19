@@ -1,2 +1,5 @@
-﻿  main.cpp
-  cpp-virtual-machine.vcxproj -> D:\Repositories\cpp-virtual-machine\Debug\cpp-virtual-machine.exe
+﻿  Debugger.cpp
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(35,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(147,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(170,23): warning C4244: 'argument': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  cpp-virtual-machine.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\Debug\cpp-virtual-machine.exe

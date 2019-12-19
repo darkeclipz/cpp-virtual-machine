@@ -8,9 +8,11 @@
 class Disassembler
 {
 private:
-	VirtualMachine* vm;
+	VirtualMachine* vm = nullptr;
 public:
+	Disassembler();
 	Disassembler(VirtualMachine& vm);
-	std::vector<std::string> disassemble_lines(uint16_t address, int lines);
+	void attach(VirtualMachine& vm);
+	std::vector<std::string> disassemble_lines(uint16_t address, int lines, bool expand_names);
 };
 

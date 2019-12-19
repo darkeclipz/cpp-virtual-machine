@@ -3,25 +3,11 @@
 #include <iostream>
 #include <vector>
 #include <windows.h>
-
-const unsigned short COLOR_WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-const unsigned short COLOR_GREEN = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-const unsigned short COLOR_RED = FOREGROUND_RED;
-const unsigned short COLOR_GRAY = 0x08;
+#include <map>
 
 class VirtualMachine
 {
 public:
-	enum FLAGS {
-		C = (1 << 0),	// Carry flag
-		Z = (1 << 1),	// Zero flag
-		I = (1 << 2),	// Disable interrupts
-		B = (1 << 3),	// Break
-		O = (1 << 4),	// Overflow
-		E = (1 << 5),	// Equality
-		L = (1 << 6),	// Less than
-		G = (1 << 7)	// Greater than
-	};
 	enum REGISTERS {
 		AX = (1 << 0), // reg A
 		BX = (1 << 1), // reg B
@@ -32,6 +18,42 @@ public:
 		BP = (1 << 6), // base pointer (for relative addressing)
 		IP = (1 << 7)  // instruction pointer
 	};
+	enum FLAGS {
+		C = (1 << 0),	// Carry flag
+		Z = (1 << 1),	// Zero flag
+		I = (1 << 2),	// Disable interrupts
+		B = (1 << 3),	// Break
+		O = (1 << 4),	// Overflow
+		E = (1 << 5),	// Equality
+		L = (1 << 6),	// Less than
+		G = (1 << 7)	// Greater than
+	};
+	enum class OPCODE_ARGUMENTS {
+
+		NONE,
+
+		C,		// Constant
+		M,		// Memory
+		P,		// Pointer
+		R,		// Register
+
+		RC,		// Register <- Constant
+		RR,		// Register <- Register
+		RM,		// Register <- Memory
+		RP,		// Register <- Pointer
+
+		MC,		// Memory <- Constant
+		MR,		// Memory <- Register
+		MM,		// Memory <- Memory
+		MP,		// Memory <- Pointer
+
+		PC,		// Pointer <- Constant
+		PR,		// Pointer <- Register
+		PM,		// Pointer <- Memory
+		PP,		// Pointer <- Pointer
+
+	};
+
 private:
 	int m_memory_size;
 	uint8_t* m_memory;
@@ -56,13 +78,6 @@ private:
 
 private:
 	void clock();
-
-	void irq();
-	void nmi(); // ??
-
-	uint16_t read_reg(uint8_t reg);
-	void write_reg(uint8_t reg, uint16_t value);
-
 	uint8_t opcode;
 
 public:
@@ -71,29 +86,23 @@ public:
 	uint8_t read_mem(uint16_t address);
 	void write_mem(uint16_t address, uint8_t value);
 	void load_rom(uint8_t* rom, int size, uint8_t address);
-	uint8_t GetFlag(FLAGS flag);
-	void SetFlag(FLAGS flag, bool value);
-	uint16_t GetAX();
-	uint16_t GetBX();
-	uint16_t GetCX();
-	uint16_t GetDX();
-	uint16_t GetSP();
-	uint16_t GetSB();
-	uint16_t GetBP();
-	uint16_t GetIP();
+	uint16_t read_reg(uint8_t reg);
+	void write_reg(uint8_t reg, uint16_t value);
+	uint8_t read_flag(uint8_t flag);
+	void write_flag(uint8_t flag, bool value);
 	void step();
 	void reset();
 	const uint16_t vga_address = 0x2000;
 
-	struct INSTRUCTION
+	struct Instruction
 	{
-		std::string name;
+		std::string full_name;
 		uint8_t(VirtualMachine::* operate)(void) = nullptr;
 		uint8_t instruction_size;
-		std::string disassemble_symbol;
+		std::string mnemonic;
+		OPCODE_ARGUMENTS opcode_arguments;
 	};
 
-	std::vector<INSTRUCTION> lookup;
-
+	std::vector<Instruction> lookup;
 };
 

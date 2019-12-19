@@ -1,2 +1,3 @@
 *.IPCH
 *.ipch
+.vs\*

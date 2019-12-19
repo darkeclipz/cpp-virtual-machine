@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Assembler.cpp" />
+    <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="ConsoleScreen.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="Disassembler.cpp" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assembler.h" />
+    <ClInclude Include="CommandParser.h" />
     <ClInclude Include="ConsoleScreen.h" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="Disassembler.h" />

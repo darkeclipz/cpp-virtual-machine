@@ -6,7 +6,7 @@ A virtual machine / CPU emulator written in C++. It contains a VM, assembler, an
 
 # CPU
 
-The CPU contains four general purpose registers, named `AX`, `BX`, `CX`, and `DX`. There is a stack pointer `SP` which indicates the top of the stack. There is a base pointer `BP` which is the bottom of the stack. The stack grows upwards, to lower memory. Finally there is the instruction pointer `ip`.
+The CPU contains four general purpose registers, named `AX`, `BX`, `CX`, and `DX`. There is a stack pointer `SP` which indicates the top of the stack. There is a base pointer `BP` which is the bottom of the stack. The stack grows upwards, to lower memory. Finally there is the instruction pointer `IP`.
 
 |Name | Value | Bits | Description |
 | -- | -- |-- | -- |
@@ -37,51 +37,16 @@ The following flags are used in the virtual machine.
 
 Memory has the following layout:
 
-| `0x00 - 0x1ffff` | `0x2000 + 0x24B0`  | `0x24B1 - sp` | `sp - 0x7FFF` | `0x8000 - 0xFFFF` |
-| -- | -- | -- | -- | -- | 
-| Empty | VGA | Empty | Stack | _Unused_ |
-
  * In the constructor of the virtual machine the amount of memory is currently set to 8kb.
- * The address range is `0x0000 - 0x8000`.
+ * The address range is `0x0000 - 0xffff`.
  * The VGA is mapped to address `0x2000` in memory. 
+   * Size is set at `76x20` so `1520` bytes, range `0x2000-0x25f0`.
  * At the moment, a ROM is loaded at address `0x0000`.
  * The stack is located at the end of memory.
 
 # Instructions
 
-The virtual machine support the following opcodes.
-
-See `opcode_table.xlsx`.
-
-# Assembly
-
-Explain the Assembly language.
-
-## CALL/RET
-
-The opcodes `CALL` and `RET` call another function. These functions need to do some housekeeping.
-
-```
-my_function:
-
-    ...
-
-    RET
-
-CALL my_function
-```
-
-Should be translated into:
-
-```
-my_function:
-    ...
-    POP ip
-
-
-PUSH ip
-JMP my_function
-```
+The [virtual machine support the following opcodes](opcodes.md).
 
 ## Including files
 
@@ -94,9 +59,18 @@ Before assembling, other assembly files should be included. They are annotated w
 # Debugger
 
  * Press `F5` to halt.
- * Enter `run` to start.
+ * Enter `run` to start (shorthand: `r`).
  * Enter `reset` to reset.
- * Enter `step` to execute one instruction.
+ * Enter `step` to execute one instruction (shorthand: `s`).
+ * Enter `exit` to exit.
+ * Enter `mem addr` to change memory view (shorthand: `m`).
+ * Enter `set_reg reg val` to set a register.
+ * Enter `set_mem addr val` to set a memory address.
+ * Enter `cursor addr` to set the write cursor at that address (shorthand: `c`).
+ * Enter `assemble opcode arg1 arg2 (arg3)` to assemble those instruction and write them to the write cursor addres.
+ * Enter `load file` to load a binary file at the write cursor.
+ * Enter `reload` to reload the file at the write cursor.
+ * Enter `b addr` to toggle a breakpoint (not added yet). 
 
 # Todo
 
