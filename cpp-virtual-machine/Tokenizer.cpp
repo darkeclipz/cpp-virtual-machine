@@ -30,7 +30,7 @@ void Tokenizer::put_back(char c) {
 }
 
 bool is_whitespace(char c) {
-	return c == ' ' || c == '\r' || c == '\t' || c == '\n' || c == 0x0;
+	return c == ' ' || c == '\r' || c == '\t' || c == '\n' || c == 0x0 || c == ',';
 }
 
 void Tokenizer::parse_comment() {
@@ -45,7 +45,7 @@ void Tokenizer::parse_comment() {
 
 void Tokenizer::parse_whitespace() {
 	char c = next_char();
-	while (is_whitespace(c)) {
+	while (is_whitespace(c) && m_index < m_string.size()) {
 		c = next_char();
 	}
 	put_back(c);
@@ -54,11 +54,11 @@ void Tokenizer::parse_whitespace() {
 std::string Tokenizer::parse_word() {
 	std::string word;
 	char c = next_char();
-	while (!is_whitespace(c) && c != ',') {
+	while (!is_whitespace(c)) {
 		word += c;
 		c = next_char();
 	}
-	if (c && c != ' ') {
+	if (c && !is_whitespace(c)) {
 		word += c;
 	}
 	return word;
@@ -138,3 +138,4 @@ uint16_t Tokenizer::read_arg_uint16(std::string x) {
 		return std::stoi(x) & 0xFFFF; // this is a number
 	}
 }
+

@@ -1,21 +1,14 @@
-﻿  ConsoleScreen.cpp
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(2,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(3,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(40,16): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(40,19): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(49,16): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(49,19): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(57,16): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(57,19): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(65,16): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(65,19): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(72,16): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
+﻿  Assembler.cpp
   Debugger.cpp
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\ConsoleScreen.cpp(72,19): warning C4838:  conversion from 'int' to 'SHORT' requires a narrowing conversion
-  Disassembler.cpp
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(140,114): warning C4267:  'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(117,22): warning C4244: 'argument': conversion from 'uint16_t' to 'const _Ty', possible loss of data
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(117,22): warning C4244:         with
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(117,22): warning C4244:         [
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(117,22): warning C4244:             _Ty=uint8_t
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(117,22): warning C4244:         ]
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(170,23): warning C4244: 'argument': conversion from 'uint16_t' to 'uint8_t', possible loss of data
   main.cpp
-  VirtualMachine.cpp
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Debugger.cpp(237,114): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
-D:\Repositories\cpp-virtual-machine\cpp-virtual-machine\Disassembler.cpp(20,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
-  cpp-virtual-machine.vcxproj -> D:\Repositories\cpp-virtual-machine\x64\Debug\cpp-virtual-machine.exe
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\main.cpp(12,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\cpp-virtual-machine\Assembler.cpp(99): warning C4715: 'Assembler::arg_char': not all control paths return a value
+  cpp-virtual-machine.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\x64\Debug\vm.exe

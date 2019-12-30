@@ -72,9 +72,9 @@ private:
 	uint8_t m_flags;	// Flags
 
 	// Opcodes
-	uint8_t NOP(); uint8_t HLT(); uint8_t MOVRC(); uint8_t MOVMM();
-	uint8_t MOVRR(); uint8_t MOVRM(); uint8_t MOVMR(); uint8_t ADDRC();
-	uint8_t JMPC(); uint8_t MOVPR(); uint8_t SHLRC();
+	void NOP(); void HLT(); void MOVRC(); void MOVMM();
+	void MOVRR(); void MOVRM(); void MOVMR(); void ADDRC();
+	void JMPC(); void MOVPR(); void SHLRC();
 
 private:
 	void clock();
@@ -90,6 +90,10 @@ public:
 	void write_reg(uint8_t reg, uint16_t value);
 	uint8_t read_flag(uint8_t flag);
 	void write_flag(uint8_t flag, bool value);
+	inline uint8_t read_ptr(uint8_t reg);
+	inline void write_ptr(uint8_t reg, uint8_t val);
+	inline uint16_t read_int(uint8_t addr);
+	inline void write_int(uint8_t addr, uint16_t val);
 	void step();
 	void reset();
 	const uint16_t vga_address = 0x2000;
@@ -97,7 +101,7 @@ public:
 	struct Instruction
 	{
 		std::string full_name;
-		uint8_t(VirtualMachine::* operate)(void) = nullptr;
+		void(VirtualMachine::* operate)(void) = nullptr;
 		uint8_t instruction_size;
 		std::string mnemonic;
 		OPCODE_ARGUMENTS opcode_arguments;

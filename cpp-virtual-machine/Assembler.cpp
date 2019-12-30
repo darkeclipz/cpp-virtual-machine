@@ -1,7 +1,11 @@
 #include "Assembler.h"
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 Assembler::Assembler() {
 	m_tokenizer = Tokenizer();
+	m_tokens = {};
 	m_binary = {};
 }
 
@@ -17,12 +21,34 @@ void Assembler::attach(VirtualMachine& vm) {
 	}
 }
 
+std::string Assembler::read_file(std::string path) {
+	std::ifstream file;
+	file.open(path);
+	std::string line;
+	std::stringstream content;
+	if (!file) {
+		throw std::invalid_argument(path);
+	}
+	while (file >> line) {
+		content << line << ' ';
+	}
+	file.close();
+	return content.str();
+}
+
+void Assembler::write_file(std::string path, uint8_t binary[]) {
+	std::fstream file;
+	file.open(path, std::ios::out | std::ios::binary);
+	file.write((char*)&binary[0], *binary);
+	file.close();
+}
+
 std::vector<uint8_t>* Assembler::binary() {
 	return &m_binary;
 }
 
 bool Assembler::empty() {
-	return m_index >= m_tokenizer.tokens()->size();
+	return m_index >= m_tokens.size();
 }
 
 std::string Assembler::next_token() {
@@ -34,7 +60,7 @@ std::string Assembler::next_token() {
 		m_token_buffer.pop_back();
 		return token;
 	}
-	return (*m_tokenizer.tokens())[m_index++];
+	return m_tokens[m_index++];
 }
 
 void Assembler::put_back(std::string token) {
@@ -56,7 +82,7 @@ VirtualMachine::OPCODE_ARGUMENTS Assembler::arg_type(std::string token) {
 			return VirtualMachine::OPCODE_ARGUMENTS::P;
 		}
 
-		// Must be a contant (memory address) then.
+		// Must be a constant (memory address) then.
 		return VirtualMachine::OPCODE_ARGUMENTS::M;
 	}
 	// Only thing left is a constant
@@ -101,14 +127,26 @@ void Assembler::write_arg(std::string arg, VirtualMachine::OPCODE_ARGUMENTS arg_
 	}
 }
 
-// MOV ax 3 MOV cx 0x2000 MOV [cx] ax ADD cx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 ADD dx 1 JMP 8
+std::string Assembler::to_upper(std::string s) {
+	for (int i = 0; i < s.size(); i++) {
+		if (s[i] >= 'a' && s[i] <= 'z') {
+			s[i] += 'A' - 'a';
+		}
+	}
+	return s;
+}
+
 void Assembler::assemble(std::string script) {
+	if (mnemonic_table.size() == 0) {
+		throw std::invalid_argument("empty mnemonic table, first use asm.attach(vm).");
+	}
 	m_binary.clear();
 	m_tokenizer.tokenize(script);
+	m_tokens = *m_tokenizer.tokens();
 	m_index = 0;
 	while (!empty()) {
 		// get the first token, like MOV
-		std::string mnemonic = next_token();
+		std::string mnemonic = to_upper(next_token());
 		// if it doesnt have args, like HLT, we write that opcode
 		if (mnemonic_table.count(mnemonic) > 0) {
 			write_opcode(mnemonic);
