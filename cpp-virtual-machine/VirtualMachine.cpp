@@ -2,6 +2,10 @@
 
 VirtualMachine::VirtualMachine(int memory_size) {
 
+	if (memory_size <= 0) {
+		throw std::invalid_argument("Assigned memory must be greater than 0.");
+	}
+
 	for (int i = 0; i < 256; i++) {
 		lookup.push_back({ "NOP", &VirtualMachine::NOP, 1, "NOP" });
 	}

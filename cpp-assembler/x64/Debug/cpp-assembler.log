@@ -1,2 +1,4 @@
-﻿  SourceFile.cpp
-  cpp-assembler.vcxproj -> C:\Users\Isomorphism\Documents\Repos\cpp-virtual-machine\x64\Debug\vasm.exe
+﻿  CodeGenerator.cpp
+D:\Repositories\cpp-virtual-machine\cpp-assembler\SyntaxAnalyzer.h(2,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+D:\Repositories\cpp-virtual-machine\cpp-assembler\CodeGenerator.cpp(7,37): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+  cpp-assembler.vcxproj -> D:\Repositories\cpp-virtual-machine\x64\Debug\vasm.exe

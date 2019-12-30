@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "../cpp-utils/utils.cpp"
 
 Assembler::Assembler() {
 	m_tokenizer = Tokenizer();
@@ -125,15 +126,6 @@ void Assembler::write_arg(std::string arg, VirtualMachine::OPCODE_ARGUMENTS arg_
 		m_binary.push_back(reg);
 		break;
 	}
-}
-
-std::string Assembler::to_upper(std::string s) {
-	for (int i = 0; i < s.size(); i++) {
-		if (s[i] >= 'a' && s[i] <= 'z') {
-			s[i] += 'A' - 'a';
-		}
-	}
-	return s;
 }
 
 void Assembler::assemble(std::string script) {

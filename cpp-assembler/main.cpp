@@ -1,21 +1,18 @@
 #include <iostream>
 #include "../cpp-virtual-machine/VirtualMachine.cpp"
 #include "SourceFile.h"
+#include "LexicalAnalyzer.h"
+#include "SyntaxAnalyzer.h"
+#include "CodeGenerator.h"
 
 int main() {
-	VirtualMachine vm(0);
-	vm.lookup;
+	SourceFile source("..\\x64\\Debug\\print_hearts.vasm");
+	LexicalAnalyzer lexer(source);
+	SyntaxAnalyzer syntax(lexer);
+	CodeGenerator generator(syntax);
 
-	std::cout << "Hello assembler!" << std::endl;
-
-	SourceFile source("C:\\Users\\Isomorphism\\Documents\\Repos\\cpp-virtual-machine\\x64\\Debug\\print_hearts.vasm");
-
-	char ch = 0;
-	while (!source.end()) {
-		ch = source.next_char();
-		std::cout << ch << std::endl;
+	while (!generator.end()) {
+		Node node = generator.next_node();
+		std::cout << node.token()->str() << '\n';
 	}
-	source.put_back(ch);
-
-	system("pause");
 }

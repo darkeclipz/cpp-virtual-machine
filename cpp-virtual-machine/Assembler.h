@@ -21,7 +21,6 @@ private:
 	char arg_char(VirtualMachine::OPCODE_ARGUMENTS arg_type);
 	void write_opcode(std::string mnemonic);
 	void write_arg(std::string arg, VirtualMachine::OPCODE_ARGUMENTS arg_type);
-	std::string to_upper(std::string s);
 public:
 	Assembler();
 	~Assembler();

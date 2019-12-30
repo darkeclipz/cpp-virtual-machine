@@ -1,8 +1,13 @@
 #include "SourceFile.h"
 #include <iostream>
 
+SourceFile::SourceFile() {
+	index = 0;
+	buffered_char = 0;
+}
+
 SourceFile::SourceFile(std::string file_path) {
-	line_index = 0;
+	index = 0;
 	buffered_char = 0;
 	file.open(file_path);
 	if (!file) {
@@ -17,9 +22,9 @@ SourceFile::~SourceFile() {
 }
 
 bool SourceFile::end() {
-	if (file.eof()) {
-		file.close();
+	if (file.eof() && index >= current_line.size()) {
 		closed = true;
+		file.close();
 		return true;
 	}
 	return false;
@@ -27,17 +32,24 @@ bool SourceFile::end() {
 
 void SourceFile::next_line() {
 	std::string line;
-	file >> line;
-	current_line = line;
+	std::getline(file, line);
+	current_line = line + '\n';
 }
 
 char SourceFile::next_char() {
-	if (line_index > current_line.size()) {
-		next_line();
-		line_index = 0;
+
+	if (buffered_char) {
+		char ch = buffered_char;
+		buffered_char = 0;
+		return ch;
 	}
 
-	return current_line[line_index++];
+	if (index >= current_line.size()) {
+		next_line();
+		index = 0;
+	}
+
+	return current_line[index++];
 }
 
 void SourceFile::put_back(char c) {

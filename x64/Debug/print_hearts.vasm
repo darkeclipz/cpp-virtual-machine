@@ -1,5 +1,30 @@
-mov ax, 3 
-mov cx, 0x2000 
-mov [cx], ax 
-add cx, 2 
-jmp 8
+start:
+    mov ax,3 
+    mov cx, 0x2000 
+loop:
+    mov [cx], ax 
+    add cx, 2 
+    jmp loop
+
+%include "print_string.asm"
+jmp $; shouldn't come here...
+
+
+; other instructions...
+mov ax, 10
+mov ax, bx
+mov ax, [ax]
+mov [10], ax
+mov [10], [ax]
+mov [10], [0x2000]
+mov [ax], 10
+mov [ax], [bx]
+mov [ax], cx
+mov [hello_str], 'A'
+
+
+hello_str:
+    db "Hello world!"
+    db "Escaped \"string\""
+
+jmp $-2
